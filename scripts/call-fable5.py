@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-claude-3tier-team 기획·전략참모 호출 스크립트 (Fable 5, API 건당 과금)
+claude-codex-3tier-team 기획·전략참모 호출 스크립트 (Fable 5, API 건당 과금)
 
 용법:
   python call-fable5.py "자문 요청 프롬프트"
@@ -20,7 +20,7 @@ import urllib.request
 MODEL = "claude-fable-5"
 API_URL = "https://api.anthropic.com/v1/messages"
 DEFAULT_SYSTEM = (
-    "너는 claude-3tier-team 편제의 기획·전략참모(Fable 5)다. "
+    "너는 claude-codex-3tier-team 편제의 기획·전략참모(Fable 5)다. "
     "소대장의 자문 요청에 대해 기획·전략 관점의 판단을 제시한다. "
     "결론 먼저, 근거는 뒤에. 대안이 갈리면 추천 1개와 이유를 명시한다. "
     "너는 부대원이 아니라 호출 대상이다 — 자문 결과만 반환하고 작업을 수행하지 않는다."
