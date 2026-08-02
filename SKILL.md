@@ -166,6 +166,14 @@ Select-String -Path "C:\Temp\codex_log.txt" -Pattern "TASK_DONE:|TASK_BLOCKED:" 
   ```
   최고 사양이 아니면 `config.toml` 의 `model` 을 올린 뒤 호출하고, **점검 결과를 보고에 남긴다.** 모델명을 스킬에 박으면 교체될 때마다 스킬을 고쳐야 한다 — 그래서 설정으로 뺐다(§3).
   Codex는 모델 목록 조회 명령이 없다. 최고 사양 여부는 릴리스 노트·`codex update` 로 확인한다.
+- ★ **Windows 샌드박스 — `elevated_windows_sandbox = false` 여야 한다** (2026-08-02 실측).
+  `~/.codex/config.toml` 의 `[features] elevated_windows_sandbox` 가 **`true` 면 샌드박스 헬퍼가 아예 뜨지 않는다** — Store 앱(`OpenAI.Codex`) 쪽 승격 헬퍼를 찾는데 그 경로가 막혀 있고 payload가 Windows 명령줄 한계(32,767자)를 넘겨 `os error 206` 으로 죽는다. **읽기조차 안 된다.**
+  `false` 로 내리면 **읽기 전용 샌드박스가 정상 동작**한다(이미지 판독 포함).
+  ```powershell
+  Get-Content "$env:USERPROFILE\.codex\config.toml" | Select-String "elevated_windows_sandbox"
+  ```
+  - **V②(읽기 전용)는 이 설정만으로 충분하다.** bypass 플래그 없이 샌드박스 안에서 돈다 → **원칙 6(검증자는 수정 권한 없음)이 기계적으로 보장된다**
+  - **쓰기 임무는 여전히 범위 제한이 안 된다** — `-s workspace-write` + `approval_policy="never"` 를 줘도 `read-only sandbox policy rejected` 로 거부된다. Windows에서 승격 헬퍼 없이는 쓰기 권한을 못 준다. 따라서 파견 분대장의 파일 쓰기·배포 임무는 `--dangerously-bypass-approvals-and-sandbox` + **절차적 격리**(전용 cwd·명세서에 손댈 파일 명시·회수 시 폴더 밖 변경 확인)로 간다
 - ★ **추론강도는 호출문에 `-c model_reasoning_effort="medium"` 로 명시한다.** 값 집합(`low`/`medium`/`high`/`xhigh`)은 안정적이라 박아도 노후화하지 않는다. `config.toml` 전역을 고치지 않는 이유는 그 설정이 이 PC의 **모든** Codex 작업에 걸리기 때문이다 — 스킬 안에서만 적용하려면 `-c` 가 맞다. 더 깊이 필요한 임무는 소대장이 그때만 `high`·`xhigh` 로 올린다.
 
 ## 5. 기획·전략참모 (Fable 5) 호출
