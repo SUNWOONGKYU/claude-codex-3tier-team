@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="1810" viewBox="0 0 1200 1810" xmlns="http://www.w3.org/2000/svg" font-family="Pretendard, 'Noto Sans KR', 'Noto Sans CJK KR', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arrGray" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrBlue" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrTeal" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#0f766e"/>
+    </marker>
+    <marker id="arrGreen" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrGold" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#b45309"/>
+    </marker>
+    <marker id="arrRed" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrViolet" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#7c3aed"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="1810" fill="#ffffff"/>
+
+  <!-- 헤더 -->
+  <rect x="0" y="0" width="1200" height="150" fill="#f5f7fa"/>
+  <line x1="0" y1="150" x2="1200" y2="150" stroke="#d5dbe4" stroke-width="1.5"/>
+  <text x="70" y="82" font-size="40" font-weight="700" fill="#111827">Claude Code · Codex 3계층 작업팀</text>
+  <text x="70" y="122" font-size="17" fill="#4b5563">사람은 목표·완료 기준·최종 판단 · AI 작업팀은 분해·배정·실행·검증 · 작업 중 V1·V2 검증 루프 반복</text>
+  <text x="1130" y="80" font-size="14" fill="#94a3b8" text-anchor="end" font-family="Consolas, monospace">claude-codex-3tier-team</text>
+
+  <!-- 사용자 -->
+  <rect x="420" y="176" width="360" height="70" rx="10" fill="#eef1f6" stroke="#475569" stroke-width="1.8"/>
+  <text x="600" y="205" font-size="19" font-weight="700" fill="#111827" text-anchor="middle">사용자 (사람)</text>
+  <text x="600" y="230" font-size="13.5" fill="#4b5563" text-anchor="middle">목표 · 완료 기준 · 금지 조건 · 중요 예외 · 최종 판단</text>
+
+  <line x1="600" y1="246" x2="600" y2="292" stroke="#475569" stroke-width="2.2" marker-end="url(#arrGray)"/>
+  <text x="614" y="276" font-size="14" font-weight="600" fill="#334155">① 임무 하달</text>
+
+  <!-- 용병 -->
+  <rect x="40" y="300" width="250" height="176" rx="14" fill="#f3eefe" stroke="#7c3aed" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="165" y="330" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">외부 AI 용병 7종</text>
+  <text x="165" y="356" font-size="13" font-weight="700" fill="#6d28d9" text-anchor="middle">ChatGPT · Gemini · Grok</text>
+  <text x="165" y="377" font-size="13" font-weight="700" fill="#6d28d9" text-anchor="middle">Perplexity · GLM · Kimi · Solar</text>
+  <text x="165" y="404" font-size="12.5" fill="#5b4a7f" text-anchor="middle">각 서비스의 웹 버전만 사용</text>
+  <text x="165" y="424" font-size="12.5" fill="#5b4a7f" text-anchor="middle">웹 세션 자동화에 호출을 맡긴다</text>
+  <text x="165" y="444" font-size="12.5" fill="#5b4a7f" text-anchor="middle">CLI·API·MCP 호출 금지</text>
+  <text x="165" y="464" font-size="12.5" fill="#5b4a7f" text-anchor="middle">실패해도 다른 경로로 우회 금지</text>
+  <line x1="290" y1="370" x2="336" y2="370" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrViolet)"/>
+
+  <!-- 참모 -->
+  <rect x="910" y="300" width="250" height="176" rx="14" fill="#fdf6e7" stroke="#b45309" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="1035" y="330" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">기획·전략참모</text>
+  <text x="1035" y="356" font-size="13.5" font-weight="700" fill="#92400e" text-anchor="middle">Fable 5</text>
+  <text x="1035" y="384" font-size="12.5" fill="#7c5310" text-anchor="middle">기획·전략 판단이 필요할 때만</text>
+  <text x="1035" y="404" font-size="12.5" fill="#7c5310" text-anchor="middle">구독제 서비스 사용이 원칙</text>
+  <text x="1035" y="424" font-size="12.5" fill="#7c5310" text-anchor="middle">유료 API 호출은 사용자 사전 승인</text>
+  <text x="1035" y="450" font-size="12.5" fill="#7c5310" text-anchor="middle">승인 없이 API로 우회하지 않는다</text>
+  <line x1="910" y1="370" x2="864" y2="370" stroke="#b45309" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrGold)"/>
+
+  <!-- 소대장 -->
+  <rect x="340" y="300" width="520" height="172" rx="14" fill="#eaf2ff" stroke="#2563eb" stroke-width="2.4"/>
+  <text x="360" y="332" font-size="13" font-weight="700" fill="#2563eb">1계층</text>
+  <text x="600" y="336" font-size="21" font-weight="700" fill="#111827" text-anchor="middle">소대장 — Claude Code 팀 리더</text>
+  <text x="600" y="364" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">Opus 5 기본</text>
+  <text x="600" y="392" font-size="13.5" fill="#374151" text-anchor="middle">업무 파악 → 편제 적용 여부 판정 → 구역 분해 → 작업자·모델 배정</text>
+  <text x="600" y="414" font-size="13.5" fill="#374151" text-anchor="middle">누적 통합 · 충돌 조정 · 사용자 보고</text>
+  <text x="600" y="442" font-size="12.5" fill="#5b6b83" text-anchor="middle">코딩·구현·디버깅·테스트·배포는 Codex를 우선 검토하되 자동 배정하지 않는다</text>
+  <text x="600" y="461" font-size="12.5" fill="#5b6b83" text-anchor="middle">맥락 이전 비용이 크거나 판단 맥락이 중요하면 Claude Code Teammate에게 배정한다</text>
+
+  <text x="600" y="500" font-size="14" font-weight="600" fill="#334155" text-anchor="middle">② 담당 구역 · 완료 기준 · 임무명세서 배정 (모델은 소환 시점에 고정)</text>
+  <line x1="470" y1="510" x2="330" y2="550" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrBlue)"/>
+  <line x1="730" y1="510" x2="870" y2="550" stroke="#0f766e" stroke-width="2.2" marker-end="url(#arrTeal)"/>
+
+  <!-- 2계층 -->
+  <rect x="60" y="558" width="500" height="150" rx="14" fill="#eaf2ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="80" y="588" font-size="13" font-weight="700" fill="#2563eb">2계층</text>
+  <text x="310" y="592" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">Claude Code Teammate 분대장 × N</text>
+  <text x="310" y="618" font-size="14.5" font-weight="700" fill="#1d4ed8" text-anchor="middle">Sonnet 5 기본 · Agent Teams</text>
+  <text x="310" y="644" font-size="13" fill="#374151" text-anchor="middle">담당 구역 실행 · 분대원 소환 및 모델 배정</text>
+  <text x="310" y="665" font-size="13" fill="#374151" text-anchor="middle">단계별 검증 단위를 완성 즉시 제출</text>
+  <text x="310" y="690" font-size="12.5" fill="#5b6b83" text-anchor="middle">메일박스 교신 · 공유 작업목록으로 자율 조정</text>
+
+  <rect x="640" y="558" width="500" height="150" rx="14" fill="#e7f5f2" stroke="#0f766e" stroke-width="2"/>
+  <text x="660" y="588" font-size="13" font-weight="700" fill="#0f766e">2계층</text>
+  <text x="890" y="592" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">Codex 파견 분대장 × N</text>
+  <text x="890" y="618" font-size="14.5" font-weight="700" fill="#0d6e66" text-anchor="middle">GPT-5.6 Sol · Medium 기본 · Codex CLI</text>
+  <text x="890" y="644" font-size="13" fill="#374151" text-anchor="middle">독립 임무 실행 · 자체 서브에이전트 지휘</text>
+  <text x="890" y="665" font-size="13" fill="#374151" text-anchor="middle">단계별 검증 단위를 완성 즉시 제출</text>
+  <text x="890" y="690" font-size="12.5" fill="#4b6b66" text-anchor="middle">외부 AI지만 부대원 — 용병과 다르다</text>
+
+  <line x1="310" y1="708" x2="310" y2="762" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrBlue)"/>
+  <line x1="890" y1="708" x2="890" y2="762" stroke="#0f766e" stroke-width="2.2" marker-end="url(#arrTeal)"/>
+  <text x="326" y="742" font-size="13" font-weight="600" fill="#334155">③ 소환 (병렬·물량 이익이 있을 때만)</text>
+
+  <!-- 3계층 -->
+  <rect x="60" y="770" width="240" height="118" rx="12" fill="#f1f5fb" stroke="#7c93b5" stroke-width="1.8"/>
+  <text x="78" y="796" font-size="12.5" font-weight="700" fill="#5b7ba6">3계층</text>
+  <text x="180" y="820" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Claude Code 서브에이전트</text>
+  <text x="180" y="844" font-size="13.5" font-weight="700" fill="#3f6091" text-anchor="middle">Haiku 4.5 기본</text>
+  <text x="180" y="868" font-size="12.5" fill="#4b5563" text-anchor="middle">대량 탐색·분류·요약·포맷 변환</text>
+
+  <rect x="320" y="770" width="240" height="118" rx="12" fill="#f1f5fb" stroke="#7c93b5" stroke-width="1.8"/>
+  <text x="338" y="796" font-size="12.5" font-weight="700" fill="#5b7ba6">3계층</text>
+  <text x="440" y="820" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Claude Code 서브에이전트</text>
+  <text x="440" y="844" font-size="13.5" font-weight="700" fill="#3f6091" text-anchor="middle">판단이 섞이면 Sonnet 5</text>
+  <text x="440" y="868" font-size="12.5" fill="#4b5563" text-anchor="middle">단일 임무 → 분대장 보고 → 소멸</text>
+
+  <rect x="640" y="770" width="240" height="118" rx="12" fill="#eef7f5" stroke="#4f948c" stroke-width="1.8"/>
+  <text x="658" y="796" font-size="12.5" font-weight="700" fill="#3f8079">3계층</text>
+  <text x="760" y="820" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Codex 서브에이전트</text>
+  <text x="760" y="844" font-size="13.5" font-weight="700" fill="#0d6e66" text-anchor="middle">GPT-5.6 Terra · Medium 기본</text>
+  <text x="760" y="868" font-size="12.5" fill="#4b5563" text-anchor="middle">파견 분대장의 하위 임무 수행</text>
+
+  <rect x="900" y="770" width="240" height="118" rx="12" fill="#eef7f5" stroke="#4f948c" stroke-width="1.8"/>
+  <text x="918" y="796" font-size="12.5" font-weight="700" fill="#3f8079">3계층</text>
+  <text x="1020" y="820" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Codex 서브에이전트</text>
+  <text x="1020" y="844" font-size="13.5" font-weight="700" fill="#0d6e66" text-anchor="middle">난도에 따라 모델·추론강도 조정</text>
+  <text x="1020" y="868" font-size="12.5" fill="#4b5563" text-anchor="middle">내부 분해에 소대장은 개입하지 않는다</text>
+
+  <!-- 검증 루프 -->
+  <rect x="60" y="928" width="1080" height="520" rx="18" fill="#fbfcfe" stroke="#94a3b8" stroke-width="2" stroke-dasharray="9 6"/>
+  <text x="600" y="964" font-size="19" font-weight="700" fill="#111827" text-anchor="middle">④ 작업 중 반복되는 검증 루프 — 전체 작업이 끝날 때까지 검증을 미루지 않는다</text>
+  <text x="600" y="990" font-size="13" fill="#5b6b83" text-anchor="middle">검증자는 작업에 참여하지 않은 별도 세션이며 결과물을 직접 수정하지 않는다 (발견·판정·보고만)</text>
+
+  <rect x="100" y="1018" width="270" height="104" rx="12" fill="#f4f6fa" stroke="#64748b" stroke-width="1.8"/>
+  <text x="235" y="1048" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">검증 단위 제출</text>
+  <text x="235" y="1072" font-size="12.5" fill="#4b5563" text-anchor="middle">다음 작업에 넘겨도 되는</text>
+  <text x="235" y="1092" font-size="12.5" fill="#4b5563" text-anchor="middle">완결된 단계 결과물</text>
+  <text x="235" y="1112" font-size="12.5" fill="#94a3b8" text-anchor="middle">탐색 메모·미완 조각은 제외</text>
+
+  <line x1="370" y1="1070" x2="430" y2="1070" stroke="#475569" stroke-width="2.2" marker-end="url(#arrGray)"/>
+
+  <rect x="430" y="1018" width="290" height="104" rx="12" fill="#eaf2ff" stroke="#2563eb" stroke-width="2.2"/>
+  <text x="575" y="1048" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">V1 단계검증</text>
+  <text x="575" y="1072" font-size="13.5" font-weight="700" fill="#1d4ed8" text-anchor="middle">Sonnet 5 기본 · 수정 금지</text>
+  <text x="575" y="1094" font-size="12.5" fill="#374151" text-anchor="middle">범위·완료 기준 / 요구 형식 / 누락·</text>
+  <text x="575" y="1113" font-size="12.5" fill="#374151" text-anchor="middle">명백한 오류 / 금지·안전 기준 위반</text>
+
+  <line x1="720" y1="1070" x2="790" y2="1070" stroke="#16a34a" stroke-width="2.2" marker-end="url(#arrGreen)"/>
+  <text x="755" y="1058" font-size="12.5" font-weight="700" fill="#15803d" text-anchor="middle">통과</text>
+
+  <rect x="790" y="1018" width="300" height="104" rx="12" fill="#eef1f6" stroke="#475569" stroke-width="2"/>
+  <text x="940" y="1048" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">소대장 누적 통합</text>
+  <text x="940" y="1074" font-size="12.5" fill="#374151" text-anchor="middle">통과본이 나올 때마다 현재 작업본에 반영</text>
+  <text x="940" y="1094" font-size="12.5" fill="#374151" text-anchor="middle">충돌·중복·누락 해소, 전체 논리 연결</text>
+  <text x="940" y="1114" font-size="12.5" fill="#94a3b8" text-anchor="middle">끝까지 기다렸다 한꺼번에 종합하지 않는다</text>
+
+  <line x1="940" y1="1122" x2="940" y2="1192" stroke="#475569" stroke-width="2.2" marker-end="url(#arrGray)"/>
+
+  <rect x="790" y="1200" width="300" height="120" rx="12" fill="#e7f5f2" stroke="#0f766e" stroke-width="2.4"/>
+  <text x="940" y="1230" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">V2 통합검증 — Codex</text>
+  <text x="940" y="1254" font-size="13.5" font-weight="700" fill="#0d6e66" text-anchor="middle">GPT-5.6 Sol · Medium 기본 · 수정 금지</text>
+  <text x="940" y="1278" font-size="12.5" fill="#374151" text-anchor="middle">전체 논리·판단 품질 / 결과물 간 정합성</text>
+  <text x="940" y="1298" font-size="12.5" fill="#374151" text-anchor="middle">종합 과정의 누락·왜곡 / 단계 통과 기준</text>
+  <text x="940" y="1316" font-size="12" fill="#4b6b66" text-anchor="middle">세션 맥락이 없어 처음 보는 사람에 가깝다</text>
+
+  <!-- 반려 경로 -->
+  <path d="M790 1260 L434 1260" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#arrRed)"/>
+  <rect x="120" y="1200" width="310" height="120" rx="12" fill="#fdf0f0" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="275" y="1230" font-size="16" font-weight="700" fill="#111827" text-anchor="middle">반려 시 복귀 지점</text>
+  <text x="275" y="1256" font-size="12.5" fill="#7f1d1d" text-anchor="middle">통합 과정의 논리·연결·누락 문제</text>
+  <text x="275" y="1274" font-size="12.5" fill="#7f1d1d" text-anchor="middle">→ 소대장 수정 → V2 재검증</text>
+  <text x="275" y="1296" font-size="12.5" fill="#7f1d1d" text-anchor="middle">검증 단위의 사실·구현·기준 문제</text>
+  <text x="275" y="1314" font-size="12.5" fill="#7f1d1d" text-anchor="middle">→ 원작업자 수정 → V1부터 재검증</text>
+  <path d="M275 1200 L275 1130" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#arrRed)"/>
+  <text x="290" y="1168" font-size="12.5" font-weight="700" fill="#b91c1c">반려</text>
+
+  <text x="600" y="1372" font-size="14.5" font-weight="700" fill="#0f766e" text-anchor="middle">V2 통과 → 다음 단계 작업 → 다시 「검증 단위 → V1 → 누적 통합 → V2」 반복</text>
+  <text x="600" y="1400" font-size="13" fill="#5b6b83" text-anchor="middle">누적 통합본에 실질적 변경이 생길 때마다, 그리고 그 통합본에 의존하는 다음 단계가 시작되기 전에 V2를 수행한다</text>
+  <text x="600" y="1426" font-size="13" fill="#5b6b83" text-anchor="middle">각 지적은 [심각도] [조치필요/조치불요]로 표시한다 · 같은 종류의 조치필요가 두 번 이상 나오면 해당 유형 전체를 한 번에 검사한다</text>
+
+  <line x1="600" y1="1448" x2="600" y2="1498" stroke="#475569" stroke-width="2.2" marker-end="url(#arrGray)"/>
+
+  <!-- 최종 -->
+  <rect x="250" y="1506" width="700" height="118" rx="14" fill="#eef1f6" stroke="#475569" stroke-width="2.2"/>
+  <text x="600" y="1540" font-size="19" font-weight="700" fill="#111827" text-anchor="middle">⑤ 최종 보고 → 사용자 최종 판단</text>
+  <text x="600" y="1568" font-size="13" fill="#374151" text-anchor="middle">모든 검증 단위와 최신 누적 통합본이 통과한 뒤에만 보고한다</text>
+  <text x="600" y="1590" font-size="13" fill="#374151" text-anchor="middle">참여 작업자와 담당 구역 · 단계별 V1·V2 판정과 재검증 횟수 · 완료 증거 · 최종 산출물 목록</text>
+  <text x="600" y="1613" font-size="12.5" fill="#94a3b8" text-anchor="middle">마지막 V2 이후 내용이 실질적으로 바뀌었다면 V2를 다시 수행한다</text>
+
+  <text x="600" y="1662" font-size="13.5" font-weight="700" fill="#334155" text-anchor="middle">편제는 한 번 세우면 임무 완료까지 유지한다 — 변경·축소·검증 생략·중도 해산에는 사용자 승인이 필요하다</text>
+  <text x="600" y="1688" font-size="13" fill="#5b6b83" text-anchor="middle">소환이 막히면 직접 작업으로 조용히 대체하지 않고 사유·대안·손실을 보고해 승인받는다 · 무응답은 승인이 아니다</text>
+  <text x="600" y="1714" font-size="13" fill="#5b6b83" text-anchor="middle">V2 통과와 사용자 보고가 끝난 뒤에만 해산한다 · 세션이 바뀌면 같은 임무의 편제를 다시 세워 이어간다</text>
+
+  <line x1="70" y1="1744" x2="1130" y2="1744" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="70" y="1776" font-size="12.5" fill="#94a3b8">모델 구성은 현재 기본 편성이며, 모델이 바뀌어도 판단·관리·대량 실행을 업무 난도와 비용에 따라 나눠 배치한다는 원칙은 유지된다.</text>
+</svg>
