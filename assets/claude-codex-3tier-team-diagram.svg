@@ -157,7 +157,7 @@
   <text x="940" y="1254" font-size="13.5" font-weight="700" fill="#0d6e66" text-anchor="middle">GPT-5.6 Sol · Medium 기본 · 수정 금지</text>
   <text x="940" y="1278" font-size="12.5" fill="#374151" text-anchor="middle">전체 논리·판단 품질 / 결과물 간 정합성</text>
   <text x="940" y="1298" font-size="12.5" fill="#374151" text-anchor="middle">종합 과정의 누락·왜곡 / 단계 통과 기준</text>
-  <text x="940" y="1316" font-size="12" fill="#4b6b66" text-anchor="middle">세션 맥락이 없어 처음 보는 사람에 가깝다</text>
+  <text x="940" y="1316" font-size="12" fill="#4b6b66" text-anchor="middle">세션을 이어 가 직전 대비 변경을 본다</text>
 
   <!-- 반려 경로 -->
   <path d="M790 1260 L434 1260" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 5" fill="none" marker-end="url(#arrRed)"/>

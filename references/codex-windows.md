@@ -77,5 +77,169 @@ Get-Content "$env:USERPROFILE\.codex\config.toml" | Select-String "elevated_wind
 
 - `You've hit your usage limit ... try again at HH:MM` — ChatGPT 구독의 별도 사용량 한도다. Claude 한도와 무관하게 따로 걸린다. 안내 시각까지 대기하거나 해당 구역을 Claude Code Teammate 분대장으로 되돌린다.
 - hang 발생 시 멈춘 `codex` / 자식 `node` PID만 골라 `Stop-Process`.
-- Codex는 세션 맥락을 전혀 공유하지 않는다. 대상 파일 경로·범위·기준·산출 형식·종료 마커를 임무명세서에 전부 담는다. 단, 내부 분해 방식은 지시하지 않는다.
-- Codex는 상주하지 않아 반려분을 스스로 고치지 못한다. 소대장이 반려 사유를 임무명세서에 담아 다시 호출한다.
+- 첫 호출의 임무명세서에는 대상 파일 경로·범위·기준·산출 형식·종료 마커를 전부 담는다. 단, 내부 분해 방식은 지시하지 않는다.
+- `codex exec` 는 프로세스가 매 호출마다 끝난다. 하지만 **세션과 맥락은 남는다.** 아래 §7 참조 — 상주하지 않는 것과 맥락이 사라지는 것은 다르다.
+
+## 7. 세션을 이어 쓰는 두 경로
+
+**기본은 `exec resume` 이다.** 창을 띄울 필요가 없고, 호출하면 그 자리에서 실행된다.
+
+```
+codex exec --skip-git-repo-check "<첫 임무명세서>"           # 이 호출이 세션을 만든다
+codex exec --skip-git-repo-check resume --last "<이어질 지시>"
+codex exec --skip-git-repo-check resume <세션 id> "<이어질 지시>"
+```
+
+실측: 첫 `exec` 호출로 rollout 이 생성되고, `resume --last` 가 직전 지시를 그대로 복창했다.
+**맥락이 이어진다.** 분대장이 여럿이면 `--last` 는 의도한 세션이 아닐 수 있으므로 세션 id 를 명시한다.
+
+`exec resume` 의 장점: 창 불필요 · 즉시 실행 · 세션 탐색 부담 적음.
+**반려 수정, 추가 자료 전달, 범위 조정은 전부 이 경로로 한다.** 임무명세서를 매번 새로 쓰는 것은
+맥락을 버리고 토큰을 두 번 내는 짓이고, 분대장이 자기 산출물을 모르는 채 수정에 들어간다.
+
+### 7.1 대화형 TUI + `codex queue` — 지휘관이 화면을 봐야 할 때만
+
+대화형으로 띄운 세션에는 살아 있는 상태로 메시지를 넣을 수 있다.
+
+```
+codex queue --thread <세션 UUID> --message "<메시지>"
+```
+
+성공하면 `Queued message <id> for thread <uuid>` 가 나온다. 이 줄이 없으면 실패다.
+
+- **큐는 즉시 실행이 아니다.** 현재 턴이 끝난 뒤 소비된다. 반영 확인은 산출물 파일 변경으로 한다.
+- **빈 세션에는 큐를 넣을 수 없다.** `no rollout found for thread id` 가 난다. rollout 은 첫 턴이
+  돌아야 생기므로, 띄울 때 첫 프롬프트를 같이 줘야 한다.
+
+**세션을 띄우는 절차** — 런처는 반드시 `.ps1` 파일로 만들고 `-File` 로 넘긴다.
+
+```powershell
+# launch_codex.ps1  — ★ UTF-8 BOM 으로 저장할 것
+Set-Location '<작업 디렉터리>'
+codex '대기 상태다. 준비됐다고 한 줄로만 답해라.'
+```
+
+```powershell
+Start-Process -FilePath 'powershell.exe' `
+  -ArgumentList '-NoExit','-NoProfile','-ExecutionPolicy','Bypass','-File','<위 경로>' `
+  -PassThru -WindowStyle Normal
+```
+
+- **`-Command` 에 한글 프롬프트를 중첩 따옴표로 직접 넣으면 런처가 조용히 죽는다.** 창이 뜬 것처럼
+  보이는데 프로세스가 없고 rollout 도 안 생긴다. 이걸 "rollout 생성 고장" 으로 오판하기 쉽다.
+- **`.ps1` 을 BOM 없이 저장하면 한글이 깨진 채 들어간다.** Windows PowerShell 5.1 은 BOM 이 없으면
+  ANSI 로 읽는다(§2 와 같은 함정). 실측에서 `대기 상태다…` 가 `?湲??곹깭??…` 로 들어갔다.
+  시드 프롬프트를 영문으로 쓰면 이 문제를 피한다.
+
+### 7.2 세션 UUID·작업 디렉터리 얻기
+
+`history.jsonl` 은 **사람이 친 입력만** 기록한다. 소대장이 띄운 세션은 거기 안 잡힌다.
+**rollout 파일명에서 뽑는 것이 정석이다.**
+
+```
+rollout-<시작시각>-<thread UUID>.jsonl
+```
+
+작업 디렉터리는 그 파일 **첫 줄 메타의 `cwd`** 에 있다. UUID 와 cwd 를 한 번에 얻으므로
+아래 오배송 방지 판정까지 이 파일 하나로 끝난다.
+
+```bash
+# 최신 세션의 UUID 와 cwd
+f=$(ls -t ~/.codex/sessions/*/*/*/rollout-*.jsonl | head -1)
+echo "uuid: $(basename "$f" .jsonl | sed 's/^rollout-[0-9T-]*-//')"
+python -c "import json,sys;m=json.loads(open(sys.argv[1],encoding='utf-8').readline());print('cwd:',(m.get('payload') or m).get('cwd'))" "$f"
+```
+
+### 7.3 대상 오배송 방지 — 보내기 전 게이트 (필수)
+
+Codex 세션은 여러 개가 **서로 다른 프로젝트를 동시에** 판다. "가장 최근 세션" 만 보고 고르면
+지휘관이 다른 창에 한 줄 치는 순간 대상이 넘어가 **남의 분대에 지시가 꽂힌다.**
+`exec resume --last` 도 같은 위험을 갖는다.
+
+보내기 전 셋을 확인한다.
+
+1. **작업 디렉터리** — rollout 첫 줄 메타의 `cwd` 가 현재 임무의 저장소 아래인가
+2. **생존** — `~/.codex/logs_2.sqlite` 에 그 `thread_id` 의 로그가 최근 N분(권장 30분) 안에 있는가
+3. **후보 수** — 정확히 1개인가. **0개거나 2개 이상이면 보내지 말고 지휘관에게 보고한다**
+
+```python
+# 후보 판정 (Python). PROJECT_ROOT 를 현재 임무의 저장소 루트로 바꾼다.
+import json, pathlib, sqlite3, os, tempfile, shutil, time, datetime
+PROJECT_ROOT = r"<현재 임무 저장소 루트>"
+LIVE_MIN = 30
+home = pathlib.Path.home() / ".codex"
+
+tmp = os.path.join(tempfile.gettempdir(), "codex_gate.sqlite")
+for ext in ("", "-wal", "-shm"):
+    s = home / ("logs_2.sqlite" + ext)
+    if s.exists(): shutil.copy2(s, tmp + ext)
+cur = sqlite3.connect(tmp).cursor()
+now = int(time.time())
+
+ok = []
+for p in sorted(home.glob("sessions/*/*/*/rollout-*.jsonl"), key=lambda x: x.stat().st_size)[-40:]:
+    tid = p.name[:-6][-36:]
+    try:
+        meta = json.loads(p.read_text(encoding="utf-8", errors="replace").splitlines()[0])
+        cwd = (meta.get("payload") or meta).get("cwd", "")
+    except Exception:
+        continue
+    in_proj = bool(cwd) and os.path.normcase(cwd).startswith(os.path.normcase(PROJECT_ROOT))
+    r = cur.execute("SELECT MAX(ts) FROM logs WHERE feedback_log_body LIKE ?", (f"%{tid}%",)).fetchone()[0]
+    live = bool(r) and (now - r) / 60 <= LIVE_MIN
+    if in_proj and live:
+        ok.append(tid)
+    print(("OK " if (in_proj and live) else "-- "), tid[:13], cwd)
+
+print("후보:", ok if ok else "없음")
+assert len(ok) == 1, "후보가 1개가 아니다 — 보내지 말고 지휘관에게 보고한다"
+```
+
+**보고에는 대상의 작업 디렉터리를 반드시 적는다.** 세션 id 만 적으면 지휘관이 대상이 맞는지
+확인할 방법이 없다.
+
+## 8. 세션 상태 진단
+
+세션이 멈춘 것처럼 보일 때 **파일 타임스탬프로 판정하지 마라.**
+
+| 신호 | 신뢰도 | 비고 |
+|---|---|---|
+| `~/.codex/logs_2.sqlite` 의 `logs` 테이블 | **높음** | 턴·에러가 실시간 기록. `feedback_log_body` 에 `thread_id` 포함 |
+| `~/.codex/history.jsonl` 의 `ts` | 높음 | 사용자 입력 시각 |
+| rollout `*.jsonl` **크기** | 높음 | 두 번 재서 늘면 살아 있다 |
+| `thread_history_1.sqlite` 의 `thread_items` | 높음 | `created_at_ms` 최신값이 마지막 기록 시각 |
+| 프로세스 CPU | 낮음 | 모델 응답 대기는 네트워크 대기라 CPU 가 안 오른다. 정체 ≠ 멈춤 |
+| rollout `*.jsonl` **mtime** | **쓰지 마라** | 아래 ★ |
+| `session_index.jsonl` 의 `updated_at` | **쓰지 마라** | 갱신이 멎는다 |
+
+### ★ mtime 함정 — 실제로 오진했다
+
+**Windows 는 열린 핸들로 계속 append 되는 파일의 mtime 을 갱신하지 않는다.** 핸들이 닫힐 때까지
+디렉터리 항목의 타임스탬프가 멈춰 있다(NTFS 지연 메타데이터 갱신).
+
+실측: rollout 의 mtime 이 **이틀 전**에 멈춰 있는데 같은 파일 크기를 70초 간격으로 두 번 재니
+`31,410,231` → `31,430,007` 바이트로 **19.8KB 늘어 있었다.** 세션은 완전히 정상이었다.
+
+이 mtime 을 근거로 "기록이 죽었다 → `--resume` 불가 → 맥락이 프로세스 메모리에만 있다" 는 결론을
+냈다가 전부 철회했다. **세션 생존은 크기 증가나 `logs_2.sqlite` 로 판정하라.**
+
+### 저장 구조 (오해 방지)
+
+rollout `*.jsonl` 이 **선행 기록 로그**이고, `~/.codex/thread_history_1.sqlite` 가 그것을 읽어 만든
+**페이지 단위 투영본**이다. 둘은 경쟁 관계가 아니다.
+
+- `thread_history_projection_state.next_rollout_byte_offset` — 그 스레드의 rollout 을 어디까지 읽었는지
+- `thread_items` / `thread_turns` — 투영된 대화 항목·턴
+- `codex migrate-rollouts` (플래그 없이 실행하면 **보고만**) 로 이관 상태를 볼 수 있다.
+  실측 시점 5,961건 중 5,957건 투영 완료, 오프셋 이상 **0건**.
+
+투영 오프셋이 파일 크기보다 커 보이면 **낡은 크기와 비교한 것**이다. 다시 재라.
+
+### 관측된 고장
+
+- **`after_agent` 훅 실패** — 매 턴 `hook_name=legacy_notify error=파일 이름이나 확장명이 너무 깁니다. (os error 206)`.
+  Windows `ERROR_FILENAME_EXCED_RANGE`. 턴은 "continuing" 으로 진행된다. rollout 과는 **무관하다**
+  (rollout 은 정상 기록 중임이 확인됐다). 원인 미확인.
+- **로그 폭주 발신자 추적** — `logs` 테이블의 `process_uuid` 로 어느 프로세스가 로그를 쏟는지 가른다.
+  실측 사례에서 이 방법으로 401 재시도 폭주(분당 20~24건)의 발신자가 작업 중인 Codex 가 아니라
+  별개 프로세스임을 특정해, 작업을 건드리지 않고 그것만 종료시켰다.
