@@ -46,10 +46,10 @@
   <text x="165" y="330" font-size="17" font-weight="700" fill="#111827" text-anchor="middle">외부 AI 용병 7종</text>
   <text x="165" y="356" font-size="13" font-weight="700" fill="#6d28d9" text-anchor="middle">ChatGPT · Gemini · Grok</text>
   <text x="165" y="377" font-size="13" font-weight="700" fill="#6d28d9" text-anchor="middle">Perplexity · GLM · Kimi · Solar</text>
-  <text x="165" y="404" font-size="12.5" fill="#5b4a7f" text-anchor="middle">각 서비스의 웹 버전만 사용</text>
+  <text x="165" y="404" font-size="12.5" fill="#5b4a7f" text-anchor="middle">웹 버전 우선 사용</text>
   <text x="165" y="424" font-size="12.5" fill="#5b4a7f" text-anchor="middle">웹 세션 자동화에 호출을 맡긴다</text>
-  <text x="165" y="444" font-size="12.5" fill="#5b4a7f" text-anchor="middle">CLI·API·MCP 호출 금지</text>
-  <text x="165" y="464" font-size="12.5" fill="#5b4a7f" text-anchor="middle">실패해도 다른 경로로 우회 금지</text>
+  <text x="165" y="444" font-size="12.5" fill="#5b4a7f" text-anchor="middle">웹이 막힐 때만 API 폴백</text>
+  <text x="165" y="464" font-size="12.5" fill="#5b4a7f" text-anchor="middle">폴백은 사용자 승인 후에만</text>
   <line x1="290" y1="370" x2="336" y2="370" stroke="#7c3aed" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrViolet)"/>
 
   <!-- 참모 -->
