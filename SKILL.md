@@ -1,6 +1,6 @@
 ---
 name: claude-codex-3tier-team
-description: "Claude Code와 Codex를 결합한 3계층 AI 작업팀을 편성·운용한다. 독립 작업 구역이 둘 이상이거나 병렬 처리·종합·독립 검증의 이익이 큰 임무에서 사용한다. 소대장(Opus 5 기본), Claude Code Teammate 분대장(Sonnet 5 기본), Claude Code 서브에이전트(Haiku 4.5 기본), Codex 파견 분대장(GPT-5.6 Sol·Medium 기본)·Antigravity 파견 분대장·Grok 파견 분대장(각 CLI 기본 모델), 각 파견 분대장의 서브에이전트(Codex는 GPT-5.6 Terra·Medium 기본)와 작업 중 반복하는 V1·V2 이중 검증 루프를 운용한다. Fable 5는 구독제 서비스를 원칙으로 사용하고 API 사용료가 발생하는 호출은 사용자의 사전 승인을 받으며, 외부 AI 용병 7종은 웹 세션 자동화 스킬을 통해 웹 버전으로만 호출한다. Antigravity·Grok CLI를 쓸 수 없으면 Gemini 웹·Grok 웹을 예비로 전환한다."
+description: "Claude Code와 Codex를 결합한 3계층 AI 작업팀을 편성·운용한다. 독립 작업 구역이 둘 이상이거나 병렬 처리·종합·독립 검증의 이익이 큰 임무에서 사용한다. 소대장(Opus 5 기본), Claude Code Teammate 분대장(Sonnet 5 기본), Claude Code 서브에이전트(Haiku 4.5 기본), Codex 파견 분대장(GPT-5.6 Sol·Medium 기본)·Antigravity 파견 분대장·Grok 파견 분대장(각 CLI 기본 모델), 각 파견 분대장의 서브에이전트(Codex는 GPT-5.6 Terra·Medium 기본)와 작업 중 반복하는 V1·V2 이중 검증 루프를 운용한다. Fable 5는 구독제 서비스를 원칙으로 사용하고 API 사용료가 발생하는 호출은 사용자의 사전 승인을 받으며, 외부 AI 용병 7종은 웹 세션 자동화 스킬로 웹 버전을 우선 호출하고, 웹 경로가 막혔을 때만 사용자 승인을 받아 API로 폴백한다. Antigravity·Grok CLI를 쓸 수 없으면 Gemini 웹·Grok 웹을 예비로 전환한다."
 ---
 
 # Claude Code · Codex 3계층 작업팀 구성법
