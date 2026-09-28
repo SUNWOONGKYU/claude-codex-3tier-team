@@ -69,7 +69,7 @@
   <text x="600" y="364" font-size="15" font-weight="700" fill="#1d4ed8" text-anchor="middle">Opus 5 기본</text>
   <text x="600" y="392" font-size="13.5" fill="#374151" text-anchor="middle">업무 파악 → 편제 적용 여부 판정 → 구역 분해 → 작업자·모델 배정</text>
   <text x="600" y="414" font-size="13.5" fill="#374151" text-anchor="middle">누적 통합 · 충돌 조정 · 사용자 보고</text>
-  <text x="600" y="442" font-size="12.5" fill="#5b6b83" text-anchor="middle">코딩·구현·디버깅·테스트·배포는 Codex를 우선 검토하되 자동 배정하지 않는다</text>
+  <text x="600" y="442" font-size="12.5" fill="#5b6b83" text-anchor="middle">코딩·구현·디버깅·테스트·배포는 파견 분대장을 우선 검토하되 자동 배정하지 않는다</text>
   <text x="600" y="461" font-size="12.5" fill="#5b6b83" text-anchor="middle">맥락 이전 비용이 크거나 판단 맥락이 중요하면 Claude Code Teammate에게 배정한다</text>
 
   <text x="600" y="500" font-size="14" font-weight="600" fill="#334155" text-anchor="middle">② 담당 구역 · 완료 기준 · 임무명세서 배정 (모델은 소환 시점에 고정)</text>
@@ -87,11 +87,11 @@
 
   <rect x="640" y="558" width="500" height="150" rx="14" fill="#e7f5f2" stroke="#0f766e" stroke-width="2"/>
   <text x="660" y="588" font-size="13" font-weight="700" fill="#0f766e">2계층</text>
-  <text x="890" y="592" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">Codex 파견 분대장 × N</text>
-  <text x="890" y="618" font-size="14.5" font-weight="700" fill="#0d6e66" text-anchor="middle">GPT-5.6 Sol · Medium 기본 · Codex CLI</text>
-  <text x="890" y="644" font-size="13" fill="#374151" text-anchor="middle">독립 임무 실행 · 자체 서브에이전트 지휘</text>
-  <text x="890" y="665" font-size="13" fill="#374151" text-anchor="middle">단계별 검증 단위를 완성 즉시 제출</text>
-  <text x="890" y="690" font-size="12.5" fill="#4b6b66" text-anchor="middle">외부 AI지만 부대원 — 용병과 다르다</text>
+  <text x="890" y="592" font-size="18" font-weight="700" fill="#111827" text-anchor="middle">파견 분대장 × N — 외부 CLI</text>
+  <text x="890" y="618" font-size="14.5" font-weight="700" fill="#0d6e66" text-anchor="middle">Codex · Antigravity · Grok CLI</text>
+  <text x="890" y="644" font-size="13" fill="#374151" text-anchor="middle">Codex는 GPT-5.6 Sol · Medium 기본 · 나머지는 각 CLI 기본 모델</text>
+  <text x="890" y="665" font-size="13" fill="#374151" text-anchor="middle">자체 서브에이전트 지휘 · 검증 단위 즉시 제출 · 외부 AI지만 부대원</text>
+  <text x="890" y="690" font-size="12.5" font-weight="700" fill="#6d28d9" text-anchor="middle">예비 전환: Antigravity·Grok 불가 시 Gemini 웹·Grok 웹이 대신 맡음</text>
 
   <line x1="310" y1="708" x2="310" y2="762" stroke="#2563eb" stroke-width="2.2" marker-end="url(#arrBlue)"/>
   <line x1="890" y1="708" x2="890" y2="762" stroke="#0f766e" stroke-width="2.2" marker-end="url(#arrTeal)"/>
@@ -118,8 +118,8 @@
 
   <rect x="900" y="770" width="240" height="118" rx="12" fill="#eef7f5" stroke="#4f948c" stroke-width="1.8"/>
   <text x="918" y="796" font-size="12.5" font-weight="700" fill="#3f8079">3계층</text>
-  <text x="1020" y="820" font-size="15" font-weight="700" fill="#111827" text-anchor="middle">Codex 서브에이전트</text>
-  <text x="1020" y="844" font-size="13.5" font-weight="700" fill="#0d6e66" text-anchor="middle">난도에 따라 모델·추론강도 조정</text>
+  <text x="1020" y="820" font-size="14" font-weight="700" fill="#111827" text-anchor="middle">Antigravity·Grok 서브에이전트</text>
+  <text x="1020" y="844" font-size="13.5" font-weight="700" fill="#0d6e66" text-anchor="middle">각 CLI 기본 모델 · 난도별 조정</text>
   <text x="1020" y="868" font-size="12.5" fill="#4b5563" text-anchor="middle">내부 분해에 소대장은 개입하지 않는다</text>
 
   <!-- 검증 루프 -->

@@ -2,7 +2,7 @@
 
 사람이 사용자(지휘)를 맡고 **Claude Code가 3계층 작업팀을 운영**하는 스킬입니다. 임무를 내리면 소대장이 작업을 분해하고, 계층별로 적합한 모델을 배정해 병렬 수행하며, **작업 중 반복되는 V1·V2 이중 검증 루프**를 통과한 산출물만 보고합니다.
 
-**Codex는 2계층 파견 분대장과 작업 미참여 V2 통합검증자로 참여합니다.** 외부 AI를 "부르면 답만 주고 빠지는 용병"이 아니라 **담당 구역을 지고 검증을 받는 부대원**으로 편성합니다.
+**Codex CLI·Antigravity CLI·Grok CLI는 2계층 파견 분대장으로, Codex는 작업 미참여 V2 통합검증자로도 참여합니다.** 외부 AI를 "부르면 답만 주고 빠지는 용병"이 아니라 **담당 구역을 지고 검증을 받는 부대원**으로 편성합니다.
 
 이것은 Claude Code와 Codex의 공식 통합 기능이 아니라, **스킬과 작업 규칙으로 두 환경을 연결한 운용 체계**입니다. 아래 모델 구성은 현재 기본 편성이며, 모델이 바뀌어도 판단·관리·대량 실행을 업무 난도와 비용에 따라 나눠 배치한다는 원칙은 유지됩니다.
 
@@ -20,14 +20,19 @@ AI가 늘어날수록 **사람의 작업자 선택·개별 지시·결과 통합
 | 소대장(1계층) | Claude Code 팀 리더 | Opus 5 기본 | 업무 파악, 분해, 배정, 종합, 보고 |
 | Claude Code Teammate 분대장(2계층) | Agent Teams Teammate | Sonnet 5 기본 | 담당 구역 실행, 분대원 지휘, 단계별 검증 단위 제출 |
 | Codex 파견 분대장(2계층) | Codex CLI | GPT-5.6 Sol·Medium 기본 | 독립 임무 실행, 자체 서브에이전트 지휘, 단계별 검증 단위 제출 |
+| Antigravity 파견 분대장(2계층) | Antigravity CLI(`agy`) | CLI 기본 모델 | 독립 임무 실행, 자체 서브에이전트 지휘, 단계별 검증 단위 제출 |
+| Grok 파견 분대장(2계층) | Grok CLI(`grok`) | CLI 기본 모델 | 독립 임무 실행, 자체 서브에이전트 지휘, 단계별 검증 단위 제출 |
 | Claude Code 서브에이전트(3계층) | Subagent | Haiku 4.5 기본 | 범위가 분명한 단일 임무 수행 후 분대장에게 보고 |
 | Codex 서브에이전트(3계층) | Codex 서브에이전트 | GPT-5.6 Terra·Medium 기본 | 파견 분대장의 하위 임무 수행 후 보고 |
+| Antigravity·Grok 서브에이전트(3계층) | 각 CLI의 서브에이전트 | 각 CLI 기본 모델 | 파견 분대장의 하위 임무 수행 후 보고 |
 | V1 단계검증자 | 작업 미참여 Teammate 별도 세션 | Sonnet 5 기본, 수정 금지 | 단계별 검증 단위 즉시 검증 |
 | V2 통합검증자 | 작업 미참여 Codex 별도 세션 | GPT-5.6 Sol·Medium 기본, 수정 금지 | 누적 통합본 독립 검증 |
 | 기획·전략참모 | Fable 5 | 구독제 원칙, 유료 API는 사전 승인 | 기획·전략 자문 |
 | 외부 AI 용병 | 7종 웹 버전 | 웹 세션 자동화만 사용 | 외부 관점·전문 작업 |
 
-분대장은 한 명으로 고정하지 않습니다. 독립 작업 구역과 작업량에 따라 **두 종류의 분대장을 각각 복수로** 편성합니다.
+분대장은 한 명으로 고정하지 않습니다. 독립 작업 구역과 작업량에 따라 **Claude Code Teammate 분대장과 파견 분대장(Codex·Antigravity·Grok)을 각각 복수로** 편성합니다.
+
+**예비 전환** — Antigravity·Grok CLI 파견 분대장을 쓸 수 없으면(미설치·오류·한도초과) 자리를 비우지 않고, 같은 계열의 웹 용병(Grok CLI → Grok 웹, Antigravity CLI → Gemini 웹)을 예비로 불러 그 구역을 대신 맡기고 사용자에게 보고합니다.
 
 ## 핵심 원칙
 
@@ -68,6 +73,7 @@ V2의 임무는 **"V1이 못 본 사각을 다른 눈으로 보는 것"** 입니
 - Claude Code v2.1.178+ (권장 v2.1.201+)
 - Agent Teams 활성화: `settings.json` 에 `{ "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" } }`
 - **Codex CLI** (파견 분대장·V2용): `npm i -g @openai/codex` + `codex login` (ChatGPT 구독 경로). 없으면 편제에서 빼고 Claude Code Teammate 분대장으로 대체한 뒤 사용자에게 보고합니다
+- **Antigravity CLI**(`agy`)·**Grok CLI**(`grok`) (파견 분대장용, 선택): 설치·로그인해 두면 편제에 들어갑니다. 쓸 수 없으면 예비 전환으로 Gemini 웹·Grok 웹이 대신 맡습니다(웹 세션 자동화 필요)
 - 전략참모(선택): Fable 5는 구독제 사용이 원칙이며, API 사용료가 발생하는 호출(`scripts/call-fable5.py`, 환경변수 `ANTHROPIC_API_KEY`)은 **사용자의 사전 승인**을 받은 경우에만 씁니다
 
 ## 사용
@@ -82,7 +88,7 @@ V2의 임무는 **"V1이 못 본 사각을 다른 눈으로 보는 것"** 입니
 
 ## 외부 AI 용병 7종
 
-ChatGPT, Gemini, Grok, Perplexity, GLM, Kimi, Solar.
+ChatGPT, Gemini, Grok, Perplexity, GLM, Kimi, Solar. (Gemini 웹·Grok 웹은 Antigravity·Grok CLI 파견 분대장의 예비로도 불립니다.)
 
 - **각 서비스의 웹 버전만** 사용하고, 호출은 웹 세션 자동화에 맡깁니다
 - CLI·API·MCP·SDK·직접 HTTP 요청으로 호출하지 않습니다
